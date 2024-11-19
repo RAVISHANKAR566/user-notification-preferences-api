@@ -26,7 +26,7 @@ Clone the repository to your local machine:
 
 bash
 Copy code
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/RAVISHANKAR566/user-notification-preferences-api
 cd your-repo-name
 2. Install dependencies
 Install the required dependencies:
