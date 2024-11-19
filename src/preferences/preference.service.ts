@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserPreference, UserPreferenceDocument } from '../schemas/user-preference.schema';
+import {
+  UserPreference,
+  UserPreferenceDocument,
+} from '../schemas/user-preference.schema';
 import { CreatePreferenceDto } from 'src/dto/create-preference.dto';
 
 @Injectable()
 export class PreferencesService {
   constructor(
-    @InjectModel(UserPreference.name) private userPreferenceModel: Model<UserPreferenceDocument>,
+    @InjectModel(UserPreference.name)
+    private userPreferenceModel: Model<UserPreferenceDocument>,
   ) {}
 
   /**
@@ -17,7 +21,9 @@ export class PreferencesService {
    * @returns The created or updated preferences document.
    */
   async createOrUpdate(userId: string, preferencesDto: CreatePreferenceDto) {
-    const existingPreference = await this.userPreferenceModel.findOne({ userId });
+    const existingPreference = await this.userPreferenceModel.findOne({
+      userId,
+    });
 
     if (existingPreference) {
       // Update existing preferences

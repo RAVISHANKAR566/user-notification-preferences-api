@@ -8,7 +8,9 @@ async function bootstrap() {
   // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('User Notification Preferences API') // Title of the API
-    .setDescription('API for managing user notification preferences and sending notifications.') // Description
+    .setDescription(
+      'API for managing user notification preferences and sending notifications.',
+    ) // Description
     .setVersion('1.0') // Version
     .addTag('preferences') // Optional: a tag to group related routes
     .addTag('notifications') // Optional: another tag for the notifications API

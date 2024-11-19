@@ -6,8 +6,21 @@ export class NotificationController {
   constructor(private notificationService: NotificationService) {}
 
   @Post('send')
-  async sendNotification(@Body() body: { userId: string, type: string, channel: string, content: any }) {
-    return this.notificationService.sendNotification(body.userId, body.type, body.channel, body.content);
+  async sendNotification(
+    @Body()
+    body: {
+      userId: string;
+      type: string;
+      channel: string;
+      content: any;
+    },
+  ) {
+    return this.notificationService.sendNotification(
+      body.userId,
+      body.type,
+      body.channel,
+      body.content,
+    );
   }
 
   @Get(':userId/logs')

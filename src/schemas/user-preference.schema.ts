@@ -40,4 +40,5 @@ export class UserPreference {
 }
 
 // Create the schema from the UserPreference class
-export const UserPreferenceSchema = SchemaFactory.createForClass(UserPreference);
+export const UserPreferenceSchema =
+  SchemaFactory.createForClass(UserPreference);

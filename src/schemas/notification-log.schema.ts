@@ -29,4 +29,5 @@ export class NotificationLog {
 }
 
 // Create the schema from the NotificationLog class
-export const NotificationLogSchema = SchemaFactory.createForClass(NotificationLog);
+export const NotificationLogSchema =
+  SchemaFactory.createForClass(NotificationLog);

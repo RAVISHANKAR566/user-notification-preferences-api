@@ -25,7 +25,9 @@ describe('PreferencesService', () => {
     }).compile();
 
     service = module.get<PreferencesService>(PreferencesService);
-    model = module.get<Model<UserPreference>>(getModelToken(UserPreference.name));
+    model = module.get<Model<UserPreference>>(
+      getModelToken(UserPreference.name),
+    );
   });
 
   it('should be defined', () => {
@@ -38,7 +40,8 @@ describe('PreferencesService', () => {
         userId: 'user123',
         email: 'user@example.com',
         timezone: 'UTC',
-        preferences: {  // Correct structure for preferences field
+        preferences: {
+          // Correct structure for preferences field
           marketing: true,
           newsletter: false,
           updates: true,
@@ -54,7 +57,10 @@ describe('PreferencesService', () => {
       const saveMock = jest.fn().mockResolvedValueOnce(preferencesDto);
       model.prototype.save = saveMock; // Mock instance's save method
 
-      const result = await service.createOrUpdate(preferencesDto.userId, preferencesDto);
+      const result = await service.createOrUpdate(
+        preferencesDto.userId,
+        preferencesDto,
+      );
       expect(result).toEqual(preferencesDto);
       expect(saveMock).toHaveBeenCalled();
     });
@@ -64,7 +70,8 @@ describe('PreferencesService', () => {
         userId: 'user123',
         email: 'user@example.com',
         timezone: 'UTC',
-        preferences: {  // Correct structure for preferences field
+        preferences: {
+          // Correct structure for preferences field
           marketing: false,
           newsletter: true,
           updates: true,
@@ -89,12 +96,19 @@ describe('PreferencesService', () => {
       // Simulate an existing preference
       const mockExistingDoc = {
         ...existingPreference,
-        save: jest.fn().mockResolvedValueOnce({ ...existingPreference, ...preferencesDto }),
+        save: jest
+          .fn()
+          .mockResolvedValueOnce({ ...existingPreference, ...preferencesDto }),
       };
 
-      jest.spyOn(model, 'findOne').mockResolvedValueOnce(mockExistingDoc as any);
+      jest
+        .spyOn(model, 'findOne')
+        .mockResolvedValueOnce(mockExistingDoc as any);
 
-      const result = await service.createOrUpdate(preferencesDto.userId, preferencesDto);
+      const result = await service.createOrUpdate(
+        preferencesDto.userId,
+        preferencesDto,
+      );
       expect(result).toEqual({ ...existingPreference, ...preferencesDto });
       expect(mockExistingDoc.save).toHaveBeenCalled();
     });
@@ -115,7 +129,9 @@ describe('PreferencesService', () => {
         },
       };
 
-      jest.spyOn(model, 'findOne').mockResolvedValueOnce(userPreferences as any);
+      jest
+        .spyOn(model, 'findOne')
+        .mockResolvedValueOnce(userPreferences as any);
 
       const result = await service.getPreferences(userId);
       expect(result).toEqual(userPreferences);

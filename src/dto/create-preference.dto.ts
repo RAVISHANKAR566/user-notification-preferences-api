@@ -1,4 +1,10 @@
-import { IsString, IsEmail, IsEnum, IsBoolean, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsEmail,
+  IsEnum,
+  IsBoolean,
+  ValidateNested,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger'; // Import Swagger decorators
 import { Type } from 'class-transformer';
 
@@ -29,7 +35,10 @@ class PreferencesDto {
   @IsBoolean()
   updates: boolean;
 
-  @ApiProperty({ enum: ['daily', 'weekly', 'monthly', 'never'], description: 'Notification frequency.' })
+  @ApiProperty({
+    enum: ['daily', 'weekly', 'monthly', 'never'],
+    description: 'Notification frequency.',
+  })
   @IsEnum(['daily', 'weekly', 'monthly', 'never'])
   frequency: 'daily' | 'weekly' | 'monthly' | 'never';
 
@@ -47,7 +56,10 @@ export class CreatePreferenceDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({ type: PreferencesDto, description: 'User notification preferences' })
+  @ApiProperty({
+    type: PreferencesDto,
+    description: 'User notification preferences',
+  })
   @ValidateNested()
   @Type(() => PreferencesDto)
   preferences: PreferencesDto;
