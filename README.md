@@ -23,37 +23,28 @@ Follow these steps to set up the project locally:
 
 1. Clone the repository
 Clone the repository to your local machine:
-
-bash
-Copy code
 git clone https://github.com/RAVISHANKAR566/user-notification-preferences-api
 cd your-repo-name
+
+
 2. Install dependencies
 Install the required dependencies:
-
-bash
-Copy code
 npm install
-3. MongoDB Setup
-Since you already have a MongoDB instance, you'll need to configure the connection in your environment variables.
 
+
+4. MongoDB Setup
+Since you already have a MongoDB instance, you'll need to configure the connection in your environment variables.
 Go to your MongoDB Atlas or your local MongoDB instance and get the connection string.
 Create a .env file in the root directory of your project and add the following environment variables:
-env
-Copy code
+
 MONGO_URI=your-mongodb-connection-string
+
 4. Run the application
 Start the application in development mode:
-
-bash
-Copy code
 npm run start
 Your application should now be running on http://localhost:3000.
 
 5. Swagger API Documentation
 Once the app is running, you can visit the Swagger API documentation at:
-
-bash
-Copy code
 http://localhost:3000/api
 This will provide an interactive UI where you can test the API endpoints.
