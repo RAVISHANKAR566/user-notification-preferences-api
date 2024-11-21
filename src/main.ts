@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { VercelRequest, VercelResponse } from '@vercel/node';  // Import Vercel types
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,13 +17,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  await app.listen(3000); // NestJS should listen on port 3000
 }
 
-// Add a serverless function handler
-export default async (req: VercelRequest, res: VercelResponse) => {
-  const app = await NestFactory.create(AppModule);
-  await app.init();
+bootstrap();
 
-  return app.getHttpAdapter().getInstance()(req, res);  // Pass Vercel request/response to NestJS
-};
+// Export the bootstrap function as the handler for Vercel
+export default bootstrap;

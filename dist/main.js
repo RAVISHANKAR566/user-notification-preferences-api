@@ -16,5 +16,9 @@ async function bootstrap() {
     swagger_1.SwaggerModule.setup('api', app, document);
     await app.listen(3000);
 }
-bootstrap();
+exports.default = async (req, res) => {
+    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    await app.init();
+    return app.getHttpAdapter().getInstance()(req, res);
+};
 //# sourceMappingURL=main.js.map
