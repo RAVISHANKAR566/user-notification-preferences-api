@@ -1,23 +1,30 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { VercelRequest, VercelResponse } from '@vercel/node';  // Import Vercel types
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Swagger setup
   const config = new DocumentBuilder()
-    .setTitle('User Notification Preferences API') // Title of the API
-    .setDescription(
-      'API for managing user notification preferences and sending notifications.',
-    ) // Description
-    .setVersion('1.0') // Version
-    .addTag('preferences') // Optional: a tag to group related routes
-    .addTag('notifications') // Optional: another tag for the notifications API
-    .build(); // Build the config
-  const document = SwaggerModule.createDocument(app, config); // Create the Swagger document
-  SwaggerModule.setup('api', app, document); // Set up Swagger UI at the `/api` route
+    .setTitle('User Notification Preferences API')
+    .setDescription('API for managing user notification preferences and sending notifications.')
+    .setVersion('1.0')
+    .addTag('preferences')
+    .addTag('notifications')
+    .build();
 
-  await app.listen(3000); // Start the NestJS app
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
+  await app.listen(3000);
 }
-bootstrap();
+
+// Add a serverless function handler
+export default async (req: VercelRequest, res: VercelResponse) => {
+  const app = await NestFactory.create(AppModule);
+  await app.init();
+
+  return app.getHttpAdapter().getInstance()(req, res);  // Pass Vercel request/response to NestJS
+};
